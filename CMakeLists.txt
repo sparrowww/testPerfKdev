@@ -10,6 +10,7 @@ set(SOURCES_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/src)
 include_directories(${HEADERS_DIRECTORY} ${SOURCES_DIRECTORY})
 ###############################################
 set(HEADERS
+${HEADERS_DIRECTORY}/ccout.hpp
 ${HEADERS_DIRECTORY}/testFile.hpp
 )
 
