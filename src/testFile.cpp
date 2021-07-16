@@ -223,5 +223,28 @@
       stopChronoTime(textToPrint);
    };
 
+   //---------------------------------------------------
+   void TESTCLASS::testParentChild()
+   {
+      A * a = new A();
+      a->changeNumber();
+      delete a;
+      a = nullptr;
+
+      cout << endl;
+
+      B * b = new B();
+      b->changeNumber();
+      delete b;
+      b = nullptr;
+
+      cout << endl;
+
+      A * ab = new B();
+      ab->changeNumber();
+      delete ab;
+      ab = nullptr;
+   };
+
 
 

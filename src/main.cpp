@@ -16,12 +16,17 @@
 //       tstCl->preIncrementTest(size);
 //       tstCl->preIncrementTestWhile(size);
 
-      tstCl->testStringCopy();
+//       tstCl->testStringCopy();
+
+      tstCl->testParentChild();
 
       delete tstCl;
       tstCl = nullptr;
 
+
+
       return 0;
    };
+
 
 
