@@ -24,6 +24,7 @@ class TESTCLASS
       void preIncrementTest ( unsigned numInc );
       void preIncrementTestWhile ( unsigned numInc );
       void testStringCopy ();
+      void testParentChild();
    private:
       inline void startChronoTime ();
       inline void stopChronoTime ( string &text );
@@ -39,6 +40,24 @@ class TESTCLASS
       struct tm *timeinfo;
       char nowdate[255];
       CCOUT * ccout;
+};
+
+class A
+{
+   public:
+      A (){cout << "A()" << endl; num = 0;};
+      virtual ~A (){cout << "~A() = "<< num << endl;};
+      virtual void changeNumber () { num += 2;};
+   protected:
+      unsigned num;
+};
+
+class B : public A
+{
+   public:
+      B () {cout << "B()" << endl;};
+      virtual ~B () {cout << "~B() = "<< num << endl;};
+      virtual void changeNumber () { num += 9;};
 };
 
 #endif
