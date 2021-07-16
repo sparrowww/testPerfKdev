@@ -10,6 +10,8 @@ using namespace std;
 #include <ratio>
 using namespace chrono;
 
+#include "ccout.hpp"
+
 class TESTCLASS
 {
    public:
@@ -21,13 +23,22 @@ class TESTCLASS
       void postIncrementTestWhile ( unsigned numInc );
       void preIncrementTest ( unsigned numInc );
       void preIncrementTestWhile ( unsigned numInc );
+      void testStringCopy ();
    private:
       inline void startChronoTime ();
       inline void stopChronoTime ( string &text );
+
+      void colorCOUT ( string text, short color, bool flEndl );
+      void colorCOUT2 ( string &text, short color, bool flEndl );
+
       high_resolution_clock::time_point difft1; ///< начальное время при запуске таймера
       high_resolution_clock::time_point difft2; ///< конечное время при остановке таймера
       duration<double, milli> time_span;
       string textToPrint;
+      time_t seconds;
+      struct tm *timeinfo;
+      char nowdate[255];
+      CCOUT * ccout;
 };
 
 #endif
