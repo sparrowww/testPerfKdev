@@ -3,13 +3,14 @@
 //---------------------------------------------------
    TESTCLASS::TESTCLASS()
    {
+      ccout = new CCOUT;
 
    };
 
 //---------------------------------------------------
    TESTCLASS::~TESTCLASS()
    {
-
+      delete ccout;
    };
 
 //---------------------------------------------------
@@ -27,6 +28,88 @@
 
       cout << "\033[34;1m(" << text.c_str() <<") DIF TIME (MS) = "
       << time_span.count()<<" \033[0m" << endl;
+   };
+
+//---------------------------------------------------
+   void TESTCLASS::colorCOUT ( string text, short color, bool flEndl )
+   {
+
+//    30    31     32       33         34      35     36     37
+//  Black  Red   Green    Yellow[14]  Blue  Magenta  Cyan  White
+      cout << "\033[" << color << ";1m";
+      cout /*<< getDate().c_str()*/ << "|||   ";
+      cout << text.c_str();
+      if ( flEndl )
+      {
+         cout << "\033[0m" << endl;
+      }
+      else
+      {
+         cout << "\033[0m";
+      }
+   };
+
+//---------------------------------------------------
+   void TESTCLASS::colorCOUT2 ( string &text, short color, bool flEndl )
+   {
+
+//    30    31     32       33         34      35     36     37
+//  Black  Red   Green    Yellow[14]  Blue  Magenta  Cyan  White
+      cout << "\033[" << color << ";1m";
+      cout /*<< getDate().c_str()*/ << "|||   ";
+      cout << text.c_str();
+      if ( flEndl )
+      {
+         cout << "\033[0m" << endl;
+      }
+      else
+      {
+         cout << "\033[0m";
+      }
+   };
+
+//---------------------------------------------------
+   void TESTCLASS::testStringCopy()
+   {
+      textToPrint = "testStringCopy";
+
+      string tmpS = "testStringCopytestStringCopytestStringCopytestStringCopytestStringCopytestStringCopytestStringCopytestStringCopytestStringCopytestStringCopytestStringCopytestStringCopy";
+
+      startChronoTime();
+      colorCOUT(tmpS,32,true);
+      stopChronoTime(textToPrint);
+
+      tmpS.append("2");
+      textToPrint.append("2");
+
+      startChronoTime();
+      colorCOUT2(tmpS,32,true);
+      stopChronoTime(textToPrint);
+
+      tmpS.pop_back();
+      tmpS.append("3");
+      textToPrint.pop_back();
+      textToPrint.append("3");
+
+      startChronoTime();
+      ccout->colorCOUT3(tmpS,32,true);
+      stopChronoTime(textToPrint);
+
+      textToPrint.pop_back();
+      textToPrint.append("4");
+
+      startChronoTime();
+      ccout->colorCOUT3("testStringCopytestStringCopytestStringCopytestStringCopytestStringCopytestStringCopytestStringCopytestStringCopytestStringCopytestStringCopytestStringCopytestStringCopy",32,true);
+      stopChronoTime(textToPrint);
+
+      ccout->colorCOUT3(1,30,false);
+      ccout->colorCOUT3("2",31,false);
+      ccout->colorCOUT3(0.009,32,false);
+      ccout->colorCOUT3('a',33,false);
+      ccout->colorCOUT3(2123,34,false);
+      ccout->colorCOUT3(-0.8,35,false);
+      ccout->colorCOUT3("qweqe",36,false);
+      ccout->colorCOUT3('b',37,true);
    };
 
 //---------------------------------------------------
