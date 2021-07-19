@@ -4,6 +4,10 @@
 #include <iostream>
 #include <unistd.h>
 using namespace std;
+#include <algorithm>
+#include "vector"
+#include "list"
+#include <memory>
 
 #include <chrono>
 #include <ctime>
@@ -25,6 +29,10 @@ class TESTCLASS
       void preIncrementTestWhile ( unsigned numInc );
       void testStringCopy ();
       void testParentChild();
+      void testBinarySearch();
+      void testBinarySearchNum( int num );
+      void testMyType();
+      void testUniqueCleverPointer ();
    private:
       inline void startChronoTime ();
       inline void stopChronoTime ( string &text );
@@ -58,6 +66,33 @@ class B : public A
       B () {cout << "B()" << endl;};
       virtual ~B () {cout << "~B() = "<< num << endl;};
       virtual void changeNumber () { num += 9;};
+};
+
+class myClass
+{
+   public:
+      myClass(){a = 0;};
+      ~myClass(){};
+      myClass(const myClass & mCl){a = mCl.a;};
+      myClass & operator = (const myClass & mCl) {a = mCl.a;};
+      bool operator < (const myClass & mCl) {return (a < mCl.a);};
+      void printAEndl ( const string & text = "") {cout <<text << ", a = "<< a << endl;};
+      void printA () {cout << "|"<< a;};
+      void setA( const int setA ){ a = setA;};
+   private:
+      int a;
+
+};
+
+class myPointers
+{
+   public:
+      myPointers(){ cout <<"myPointers()"<<endl;var = 0;};
+      ~myPointers(){cout <<"~myPointers()"<<endl;};
+      void setVar (int _var){var= _var;};
+      int getVar (){return var;};
+   private:
+      int var;
 };
 
 #endif
