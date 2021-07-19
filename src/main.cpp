@@ -18,7 +18,11 @@
 
 //       tstCl->testStringCopy();
 
-      tstCl->testParentChild();
+//       tstCl->testParentChild();
+//       tstCl->testBinarySearch();
+//       tstCl->testBinarySearchNum(5);
+//       tstCl->testMyType();
+      tstCl->testUniqueCleverPointer();
 
       delete tstCl;
       tstCl = nullptr;

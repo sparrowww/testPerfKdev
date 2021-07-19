@@ -1,4 +1,6 @@
 #include "testFile.hpp"
+#include <parallel/for_each.h>
+#include <parallel/for_each.h>
 
 //---------------------------------------------------
    TESTCLASS::TESTCLASS()
@@ -244,6 +246,112 @@
       ab->changeNumber();
       delete ab;
       ab = nullptr;
+   };
+
+//---------------------------------------------------
+   void TESTCLASS::testBinarySearch()
+   {
+      int arrInt[] = {10,49,34,1};
+
+      for_each(begin(arrInt), end(arrInt), [](int & element){ cout << element<<"|";}); cout << endl;
+      sort(begin(arrInt), end(arrInt), [](int &a, int&b){ return a<b;});
+      for_each(begin(arrInt), end(arrInt), [](int & element){ cout << element<<"|";}); cout << endl;
+      bool resSearch = binary_search(begin(arrInt), end(arrInt), arrInt[2]); cout << "resSearch = "<< resSearch<< endl;
+   };
+
+//---------------------------------------------------
+   void TESTCLASS::testBinarySearchNum( int num )
+   {
+      const unsigned sizeVec = 10;
+      vector <int> vecInt;
+      int numTry = 0;
+      bool res = false;
+      while ( 1 )
+      {
+         srand(time(nullptr));
+         vecInt.clear();
+         for ( unsigned i = 0; i < sizeVec; ++i )
+         {
+            vecInt.push_back(rand()%100);
+         }
+
+         sort(vecInt.begin(), vecInt.end());
+         for_each(vecInt.begin(), vecInt.end(), [&](int i){cout << i<<"|";});cout << endl;
+         res = binary_search(vecInt.begin(), vecInt.end(), num);
+         numTry++;
+
+         if ( res )
+         {
+            break;
+         }
+         sleep (1);
+      };
+
+      cout << "numTry = " << numTry << endl;
+
+   };
+
+//---------------------------------------------------
+   void TESTCLASS::testMyType()
+   {
+      srand(time(nullptr));
+      myClass mCL;
+      mCL.setA(rand()%100);
+      mCL.printAEndl("mCL");
+      myClass mCL2(mCL);
+      mCL2.printAEndl("mCL2");
+      myClass mCL3;
+      mCL3 = mCL2;
+      mCL3.printAEndl("mCL3");
+
+      mCL.setA(rand()%100);srand(rand()%100);
+      mCL2.setA(rand()%100);srand(rand()%100);
+      mCL3.setA(rand()%100);
+      vector <myClass> myVec;
+      int i =0;
+      const int sizeVec = 50;
+      myClass *mclPtr[sizeVec];
+      cout << "BEFORE"<< endl;
+      while ( i<sizeVec )
+      {
+         mclPtr[i] = new myClass();
+         mclPtr[i]->setA(rand()%100);srand(rand()%100);
+         mclPtr[i]->printA();
+         myVec.push_back(*mclPtr[i]);
+         ++i;
+      }
+      cout << endl;
+
+      cout << "AFTER SORT"<< endl;
+      sort(myVec.begin(), myVec.end());
+      for_each(myVec.begin(), myVec.end(),[](myClass & _mCl){ _mCl.printA();});
+      cout << endl;
+
+      i =0;
+      while ( i<sizeVec )
+      {
+         delete mclPtr[i];
+         ++i;
+      }
+
+   };
+
+//---------------------------------------------------
+   void TESTCLASS::testUniqueCleverPointer()
+   {
+      myPointers * mPtrCl = new myPointers();
+      delete mPtrCl;
+
+      {
+//          unique_ptr<myPointers> myCleverPtr (new myPointers());
+         auto myCleverPtr = unique_ptr<myPointers>(new myPointers());
+         myCleverPtr->setVar(42);
+         int var = (myCleverPtr.get())->getVar();
+         printf("var = %d\n", var);
+//          myCleverPtr.reset(nullptr);
+         printf("EXIT\n");
+      }
+      printf("END\n");
    };
 
 
