@@ -33,6 +33,8 @@ class TESTCLASS
       void testBinarySearchNum( int num );
       void testMyType();
       void testUniqueCleverPointer ();
+      void testSharedCleverPointer ();
+      void testMyCleverPointer ();
    private:
       inline void startChronoTime ();
       inline void stopChronoTime ( string &text );
@@ -87,12 +89,30 @@ class myClass
 class myPointers
 {
    public:
-      myPointers(){ cout <<"myPointers()"<<endl;var = 0;};
+      myPointers():var(0){ cout <<"myPointers()"<<endl;};
       ~myPointers(){cout <<"~myPointers()"<<endl;};
+      myPointers * getInstance () {return this;};
       void setVar (int _var){var= _var;};
       int getVar (){return var;};
+      void printVar (){printf("printVar(%d)\n", var);};
    private:
       int var;
+};
+
+template <typename T>
+class myClPtr
+{
+   public:
+      myClPtr(T * workPtr = nullptr):var(workPtr){};
+      ~myClPtr()
+      {
+         delete var;
+         var=nullptr;
+      };
+      T * operator->() {return var;};
+      T & operator*() {return *var;};
+   private:
+      T * var;
 };
 
 #endif
