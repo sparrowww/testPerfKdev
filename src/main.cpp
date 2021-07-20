@@ -22,7 +22,10 @@
 //       tstCl->testBinarySearch();
 //       tstCl->testBinarySearchNum(5);
 //       tstCl->testMyType();
-      tstCl->testUniqueCleverPointer();
+//       tstCl->testUniqueCleverPointer();
+//       tstCl->testSharedCleverPointer();
+      
+      tstCl->testMyCleverPointer();
 
       delete tstCl;
       tstCl = nullptr;

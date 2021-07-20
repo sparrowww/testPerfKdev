@@ -150,7 +150,7 @@
 
       startChronoTime();
       int i = i1 + i2 + i3;
-//       printf ("i = %d\n", i);
+      printf ("i = %d\n", i);
       stopChronoTime(textToPrint);
 
       textToPrint = "intAddTest (+=+=)";
@@ -343,16 +343,65 @@
       delete mPtrCl;
 
       {
-//          unique_ptr<myPointers> myCleverPtr (new myPointers());
-         auto myCleverPtr = unique_ptr<myPointers>(new myPointers());
-         myCleverPtr->setVar(42);
-         int var = (myCleverPtr.get())->getVar();
+//          unique_ptr<myPointers> myUniqPtr (new myPointers());
+         auto myUniqPtr = unique_ptr<myPointers>(new myPointers());
+         myUniqPtr->setVar(42);
+         int var = (myUniqPtr.get())->getVar();
          printf("var = %d\n", var);
-//          myCleverPtr.reset(nullptr);
-         printf("EXIT\n");
+//          myUniqPtr.reset(nullptr);
+         printf("END\n");
       }
-      printf("END\n");
+      printf("EXIT\n");
    };
 
+//---------------------------------------------------
+   void TESTCLASS::testSharedCleverPointer()
+   {
+//       myPointers * mPtr = new myPointers();
+//       shared_ptr<myPointers> mySharedPtr (mPtr);
+//       auto mySharedPtr = shared_ptr<myPointers>(mPtr);
+      auto mySharedPtr = make_shared<myPointers>();
+      mySharedPtr->setVar(11);
+      int var = mySharedPtr->getVar();
+      printf("var = %d\n", var);
+//       {
+         auto mySharedPtr2 = shared_ptr<myPointers>(mySharedPtr);
+         var = mySharedPtr2->getVar();
+         printf("var2 = %d\n", var);
+//       }
+
+//       {
+         auto mySharedPtr3 = shared_ptr<myPointers>(mySharedPtr);
+         var = mySharedPtr3->getVar();
+         printf("var3 = %d\n", var);
+//       }
+      var = mySharedPtr->getVar();
+      printf("var4 = %d\n", var);
+      long int count = mySharedPtr.use_count();
+      printf("EXIT, count = %ld\n", count);
+   };
+
+//---------------------------------------------------
+   void TESTCLASS::testMyCleverPointer ()
+   {
+      myPointers * mPtr = new myPointers();
+
+      myClPtr<myPointers> myCleverPtr = myClPtr<myPointers>(mPtr);
+
+      if ( myCleverPtr->getInstance() == nullptr )
+      {
+         return;
+      }
+      myCleverPtr->setVar(101);
+      (*myCleverPtr).printVar();
+
+      if ( myCleverPtr->getVar() != 100)
+      {
+         return;
+      }
+
+      delete mPtr;
+      mPtr = nullptr;
+   };
 
 
