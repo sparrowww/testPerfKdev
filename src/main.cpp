@@ -24,13 +24,12 @@
 //       tstCl->testMyType();
 //       tstCl->testUniqueCleverPointer();
 //       tstCl->testSharedCleverPointer();
-      
-      tstCl->testMyCleverPointer();
+//       tstCl->testMyCleverPointer();
+//       tstCl->testUniqueCleverPointer2();
+      tstCl->testBiteStruct();
 
       delete tstCl;
       tstCl = nullptr;
-
-
 
       return 0;
    };

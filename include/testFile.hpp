@@ -33,8 +33,10 @@ class TESTCLASS
       void testBinarySearchNum( int num );
       void testMyType();
       void testUniqueCleverPointer ();
+      void testUniqueCleverPointer2 ();
       void testSharedCleverPointer ();
       void testMyCleverPointer ();
+      void testBiteStruct();
    private:
       inline void startChronoTime ();
       inline void stopChronoTime ( string &text );
@@ -89,8 +91,14 @@ class myClass
 class myPointers
 {
    public:
-      myPointers():var(0){ cout <<"myPointers()"<<endl;};
-      ~myPointers(){cout <<"~myPointers()"<<endl;};
+      myPointers():var(0)
+      {
+         cout <<"myPointers()"<<endl;
+      };
+      ~myPointers()
+      {
+         cout <<"~myPointers()"<<endl;
+      };
       myPointers * getInstance () {return this;};
       void setVar (int _var){var= _var;};
       int getVar (){return var;};
@@ -113,6 +121,32 @@ class myClPtr
       T & operator*() {return *var;};
    private:
       T * var;
+};
+
+template <typename T>
+class CUniqPtr
+{
+   public:
+      CUniqPtr(){printf("CUniqPtr()\n");};
+      ~CUniqPtr(){printf("~CUniqPtr()\n");};
+      unique_ptr<T> getUniqPtr(T * ptrClass){ return unique_ptr<T>(ptrClass);};
+};
+
+struct SMyByte
+{
+   unsigned char bit0:1;
+   unsigned char bit1:1;
+   unsigned char bit2:1;
+   unsigned char bit3:1;
+   unsigned char bit4:1;
+   unsigned char bit5:1;
+   unsigned char bit6:1;
+   unsigned char bit7:1;
+   operator unsigned char ()
+   {
+      return (bit7<<7)+(bit6<<6)+(bit5<<5)+(bit4<<4)+(bit3<<3)+(bit2<<2)+(bit1<<1)+(bit0);
+//       return (bit0<<7)+(bit1<<6)+(bit2<<5)+(bit3<<4)+(bit4<<3)+(bit5<<2)+(bit6<<1)+(bit7);
+   };
 };
 
 #endif

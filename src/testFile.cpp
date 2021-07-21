@@ -340,11 +340,11 @@
    void TESTCLASS::testUniqueCleverPointer()
    {
       myPointers * mPtrCl = new myPointers();
-      delete mPtrCl;
+//       delete mPtrCl;
 
       {
 //          unique_ptr<myPointers> myUniqPtr (new myPointers());
-         auto myUniqPtr = unique_ptr<myPointers>(new myPointers());
+         auto myUniqPtr = unique_ptr<myPointers>(mPtrCl);
          myUniqPtr->setVar(42);
          int var = (myUniqPtr.get())->getVar();
          printf("var = %d\n", var);
@@ -352,6 +352,23 @@
          printf("END\n");
       }
       printf("EXIT\n");
+   };
+
+//---------------------------------------------------
+   void TESTCLASS::testUniqueCleverPointer2()
+   {
+      printf("testUniqueCleverPointer2 BEGIN\n");
+      CUniqPtr<myPointers> oCUniq; (void) oCUniq;
+
+      {
+//          auto uniqPtr = new myPointers();
+//          auto uniqPtr = unique_ptr<myPointers>(new myPointers());
+         auto uniqPtr = oCUniq.getUniqPtr(new myPointers());
+
+         uniqPtr->setVar(777);
+         uniqPtr->printVar();
+      }
+      printf("testUniqueCleverPointer2 END\n");
    };
 
 //---------------------------------------------------
@@ -392,11 +409,13 @@
       {
          return;
       }
-      myCleverPtr->setVar(101);
+      myCleverPtr->setVar(69);
       (*myCleverPtr).printVar();
 
-      if ( myCleverPtr->getVar() != 100)
+      int myVar = myCleverPtr->getVar();
+      if ( myVar != 100)
       {
+         printf("myVar!=100, myVar=%d\n", myVar);
          return;
       }
 
@@ -404,4 +423,21 @@
       mPtr = nullptr;
    };
 
+   //---------------------------------------------------
+   void TESTCLASS::testBiteStruct ()
+   {
+      ///NOTE           0 1 2 3 4 5 6 7
+      SMyByte oSMyByte {0,0,0,1,1,0,1,0};
+      int sizeStr = sizeof(oSMyByte);
+      printf("testBiteStruct:::sizeStr = %d\n", sizeStr);
+      printf("testBiteStruct:::oSMyByte.bit0 = %d\n", oSMyByte.bit0);
+      printf("testBiteStruct:::oSMyByte.bit1 = %d\n", oSMyByte.bit1);
+      printf("testBiteStruct:::oSMyByte.bit2 = %d\n", oSMyByte.bit2);
+      printf("testBiteStruct:::oSMyByte.bit3 = %d\n", oSMyByte.bit3);
+      printf("testBiteStruct:::oSMyByte.bit4 = %d\n", oSMyByte.bit4);
+      printf("testBiteStruct:::oSMyByte.bit5 = %d\n", oSMyByte.bit5);
+      printf("testBiteStruct:::oSMyByte.bit6 = %d\n", oSMyByte.bit6);
+      printf("testBiteStruct:::oSMyByte.bit7 = %d\n", oSMyByte.bit7);
+      printf("testBiteStruct:::oSMyByte = %x\n", oSMyByte.operator unsigned char());
+   };
 
