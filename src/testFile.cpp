@@ -441,3 +441,27 @@
       printf("testBiteStruct:::oSMyByte = %x\n", oSMyByte.operator unsigned char());
    };
 
+   //---------------------------------------------------
+   void TESTCLASS::testCasting()
+   {
+      printf("reinterpret_cast BEGIN\n");
+      int iVar = 10;
+      int * pIVar = nullptr;
+      cout << "pIVar = " << pIVar << endl;
+      pIVar = reinterpret_cast<int*>(iVar);
+      cout << "reinterpret_cast pIVar = " << pIVar << endl;
+      printf("reinterpret_cast END\n");
+
+      printf("const_cast BEGIN\n");
+      const int constIVar = 111;
+      auto la = [](const int * cI){ cout <<"LAMBDA = " << *cI << endl;};
+      la (&constIVar);
+      int noConstIVar = 12;
+      auto constIVar2 = const_cast<const int*>(&noConstIVar);
+      la (constIVar2);
+      auto noConstIVar2 = const_cast<int*>(&constIVar);
+      (*noConstIVar2)+=1;
+      la (noConstIVar2);
+      printf("const_cast END\n");
+   };
+

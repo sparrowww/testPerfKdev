@@ -37,6 +37,7 @@ class TESTCLASS
       void testSharedCleverPointer ();
       void testMyCleverPointer ();
       void testBiteStruct();
+      void testCasting();
    private:
       inline void startChronoTime ();
       inline void stopChronoTime ( string &text );

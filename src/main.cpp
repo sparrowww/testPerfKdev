@@ -26,7 +26,8 @@
 //       tstCl->testSharedCleverPointer();
 //       tstCl->testMyCleverPointer();
 //       tstCl->testUniqueCleverPointer2();
-      tstCl->testBiteStruct();
+//       tstCl->testBiteStruct();
+      tstCl->testCasting();
 
       delete tstCl;
       tstCl = nullptr;
