@@ -16,6 +16,8 @@ using namespace chrono;
 
 #include "ccout.hpp"
 
+enum MY_ECASTTYPE { MY_CTYPE = 0, MY_CONSTCAST = 1, MY_RCAST = 2, MY_SCAST = 3, MY_DCAST = 4 };
+
 class TESTCLASS
 {
    public:
@@ -37,7 +39,7 @@ class TESTCLASS
       void testSharedCleverPointer ();
       void testMyCleverPointer ();
       void testBiteStruct();
-      void testCasting();
+      void testCasting(MY_ECASTTYPE eCastType = MY_CTYPE);
    private:
       inline void startChronoTime ();
       inline void stopChronoTime ( string &text );
