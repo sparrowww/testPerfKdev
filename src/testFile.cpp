@@ -442,26 +442,90 @@
    };
 
    //---------------------------------------------------
-   void TESTCLASS::testCasting()
+   void TESTCLASS::testCasting(MY_ECASTTYPE eCastType)
    {
-      printf("reinterpret_cast BEGIN\n");
-      int iVar = 10;
-      int * pIVar = nullptr;
-      cout << "pIVar = " << pIVar << endl;
-      pIVar = reinterpret_cast<int*>(iVar);
-      cout << "reinterpret_cast pIVar = " << pIVar << endl;
-      printf("reinterpret_cast END\n");
-
-      printf("const_cast BEGIN\n");
-      const int constIVar = 111;
-      auto la = [](const int * cI){ cout <<"LAMBDA = " << *cI << endl;};
-      la (&constIVar);
-      int noConstIVar = 12;
-      auto constIVar2 = const_cast<const int*>(&noConstIVar);
-      la (constIVar2);
-      auto noConstIVar2 = const_cast<int*>(&constIVar);
-      (*noConstIVar2)+=1;
-      la (noConstIVar2);
-      printf("const_cast END\n");
+      switch (eCastType)
+      {
+         case MY_CTYPE:
+            printf("Cstyle BEGIN\n");
+            {
+               int i = 1;
+               int * pi = nullptr;
+               const int ci = 11;
+               float f = 5.2;
+               i = (int)f;
+               cout << "Cstyle i = " << i << endl;
+               pi = (int*)&ci;
+               cout << "Cstyle *pi = " << *pi << endl;
+            }
+            printf("Cstyle END\n");
+            break;
+         case MY_RCAST:
+            printf("reinterpret_cast BEGIN\n");
+            {
+               int iVar = 10;
+               int * pIVar = nullptr;
+               cout << "pIVar = " << pIVar << endl;
+               pIVar = reinterpret_cast<int*>(iVar);
+               cout << "reinterpret_cast pIVar = " << pIVar << endl;
+            }
+            printf("reinterpret_cast END\n");
+            break;
+         case MY_CONSTCAST:
+            printf("const_cast BEGIN\n");
+            {
+               const int constIVar = 111;
+               auto la = [](const int * cI){ cout <<"LAMBDA = " << *cI << endl;};
+               la (&constIVar);
+               int noConstIVar = 12;
+               auto constIVar2 = const_cast<const int*>(&noConstIVar);
+               la (constIVar2);
+               auto noConstIVar2 = const_cast<int*>(&constIVar);
+               (*noConstIVar2)+=1;
+               la (noConstIVar2);
+            }
+            printf("const_cast END\n");
+            break;
+         case MY_SCAST:
+            printf("static_cast BEGIN\n");
+            {
+               int iVar = 2;
+               MY_ECASTTYPE mEVar;
+               mEVar = static_cast<MY_ECASTTYPE>(iVar);
+               cout << "mEVar = " << mEVar << endl;
+            }
+            printf("static_cast END\n");
+            break;
+         case MY_DCAST:
+            printf("dynamic_cast BEGIN\n");
+            {
+               class CA {};
+               class CAchild:public CA {};
+               class CB { public: virtual ~CB(){};};
+               class CBchild:public CB {};
+               class CBchild2:public CB {};
+               CA ca;
+               CA * pca = &ca;
+               CB cb;
+               CB * pcb = &cb;
+               CAchild cac;
+               CAchild * pcac = &cac;
+               CBchild cbc;
+               CBchild * pcbc = &cbc;
+               CBchild2 cbc2;
+               CBchild2 * pcbc2 = &cbc2;
+               pcb = dynamic_cast<CB *>(pcbc); cout<<"pcbc PTR = " << pcbc <<endl; cout<<"pcb PTR = " << pcb <<endl;
+               pcbc2 = dynamic_cast<CBchild2 *>(pcb); cout<<"pcbc2 PTR = " << pcbc2 <<endl;
+               if (pcbc2 == nullptr)
+               {
+                  cout<<"FAIL"<<endl;//Ошибка на этапе выполнения!!!
+               }
+            }
+            printf("dynamic_cast END\n");
+            break;
+         default:
+            printf("НЕ ВЫБРАН ТИП ПРИВЕДЕНИЯ ТИПА!!!\n");
+            break;
+      };
    };
 

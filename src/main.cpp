@@ -27,7 +27,7 @@
 //       tstCl->testMyCleverPointer();
 //       tstCl->testUniqueCleverPointer2();
 //       tstCl->testBiteStruct();
-      tstCl->testCasting();
+      tstCl->testCasting(MY_DCAST);
 
       delete tstCl;
       tstCl = nullptr;
