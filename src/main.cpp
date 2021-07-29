@@ -1,11 +1,13 @@
 #include "testFile.hpp"
+#include "testFile2.hpp"
 
 //---------------------------------------------------
    int main(int argc, char **argv) 
    {
       (void) argc; (void) argv;
 
-      TESTCLASS * tstCl = new TESTCLASS();
+//       TESTCLASS tstClObj;
+//       TESTCLASS * tstCl = &tstClObj;
 
 //       tstCl->stringAddTest();
 //       tstCl->intAddTest();
@@ -27,10 +29,13 @@
 //       tstCl->testMyCleverPointer();
 //       tstCl->testUniqueCleverPointer2();
 //       tstCl->testBiteStruct();
-      tstCl->testCasting(MY_DCAST);
+//       tstCl->testCasting(MY_DCAST);
 
-      delete tstCl;
-      tstCl = nullptr;
+      {
+         CtestSize clObj("CtestSize");
+         clObj.testFunc();
+      }
+
 
       return 0;
    };

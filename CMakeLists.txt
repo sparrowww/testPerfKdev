@@ -12,6 +12,7 @@ include_directories(${HEADERS_DIRECTORY} ${SOURCES_DIRECTORY})
 set(HEADERS
 ${HEADERS_DIRECTORY}/ccout.hpp
 ${HEADERS_DIRECTORY}/testFile.hpp
+${HEADERS_DIRECTORY}/testFile2.hpp
 )
 
 ##############################################
@@ -19,6 +20,7 @@ ${HEADERS_DIRECTORY}/testFile.hpp
 set(SOURCES
 ${SOURCES_DIRECTORY}/main.cpp
 ${SOURCES_DIRECTORY}/testFile.cpp
+${SOURCES_DIRECTORY}/testFile2.cpp
 )
 
 add_executable(${PROJECT_NAME}  ${HEADERS} ${SOURCES})
