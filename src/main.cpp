@@ -1,5 +1,6 @@
 #include "testFile.hpp"
 #include "testFile2.hpp"
+#include "testFile3.hpp"
 
 //---------------------------------------------------
    int main(int argc, char **argv) 
@@ -31,9 +32,14 @@
 //       tstCl->testBiteStruct();
 //       tstCl->testCasting(MY_DCAST);
 
+//       {
+//          CtestSize clObj("CtestSize");
+//          clObj.testFunc();
+//       }
+
       {
-         CtestSize clObj("CtestSize");
-         clObj.testFunc();
+         CMyThread objMyThread;
+         objMyThread.myPollingFuncMain();
       }
 
 
